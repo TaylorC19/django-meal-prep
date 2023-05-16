@@ -9,6 +9,10 @@ def getData(request):
     serializer = ItemSerializer(items, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def world(request):
+    return Response('world')
+
 @api_view(['POST'])
 def addItem(request):
     serializer = ItemSerializer(data=request.data)
