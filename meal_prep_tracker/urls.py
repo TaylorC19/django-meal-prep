@@ -22,8 +22,8 @@ from django.urls import re_path
 urlpatterns = [
     # Add this line to serve the React app's index.html
     re_path(r'^', TemplateView.as_view(template_name='index.html')),
+    # path('', include('api.urls')),
 ]
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
-#     path('', include('api.urls'))
 # ]
