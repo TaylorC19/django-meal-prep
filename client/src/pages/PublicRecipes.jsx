@@ -15,9 +15,12 @@ function PublicRecipes() {
     (async function () {
       const userRecipes = await axios
         .get(`/api/public-recipes`)
-        .then((results) => results.data);
-      setPublicRecipes(userRecipes);
-      return "allGood";
+        .then((results) => results.data)
+        .catch((err) => false);
+        console.log(typeof userRecipes)
+      if (typeof userRecipes === "object") {
+        setPublicRecipes(userRecipes);
+      }
     })();
   }, []);
 
