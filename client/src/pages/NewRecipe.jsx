@@ -50,6 +50,8 @@ const NewRecipe = () => {
         uid: user.uid,
         recipeInfo: recipePayload 
       };
+
+      console.log(queryBody)
   
       await axios.post('/api/recipe', queryBody);
       

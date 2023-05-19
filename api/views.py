@@ -58,6 +58,7 @@ def addItem(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
 @api_view(['POST'])
 def addRecipe(request):
     uid = request.data['uid']
@@ -67,18 +68,34 @@ def addRecipe(request):
     recipeInfo = request.data['recipeInfo']
     
     nutritionInfo = nutrition(requestQuery)
+    # return Response(nutritionInfo)
 
     newRecipe = {
         "user_uid": uid,
-        "ingredients": json.dumps(nutritionInfo["ingredientsArr"]),
-        "total_calories": nutritionInfo["nutritionObj"]["totalCalories"],
-        "total_protein": nutritionInfo["nutritionObj"]["totalProtein"],
-        "total_carbohydrates": nutritionInfo["nutritionObj"]["totalCarbohydrates"],
-        "calories_per_serving":nutritionInfo["nutritionObj"]["totalCalories"] / recipeInfo["servings"],
+        "ingredients": json.dumps(nutritionInfo["ingredients_arr"]),
+        "total_calories": nutritionInfo["nutrition_obj"]["totalCalories"],
+        "total_protein": nutritionInfo["nutrition_obj"]["totalProtein"],
+        "total_carbohydrates": nutritionInfo["nutrition_obj"]["totalCarbohydrates"],
+        "calories_per_serving":nutritionInfo["nutrition_obj"]["totalCalories"] / recipeInfo["servings"],
     }
     newRecipe.update(recipeInfo)
 
     return Response(newRecipe)
+
+# sample request.data
+# {
+#     "query": "2 large eggs, 2 slices toast, 2 slices bacon",
+#     "uid": "hgGSKb8rcxdMl6cFNna7vqlZspN2",
+#     "recipeInfo": {
+#         "title": "bacon and eggs",
+#         "servings": 1,
+#         "hours": 0,
+#         "minutes": 15,
+#         "description": "Simple bacon and eggs",
+#         "instructions": "1 cook bacon to chewy\n2 cook eggs how you like in bacon fat",
+#         "is_public": true
+#     }
+# }
 
 
 # @api_view(['GET'])
