@@ -80,7 +80,11 @@ def addRecipe(request):
     }
     newRecipe.update(recipeInfo)
 
-    return Response(newRecipe)
+    serializer = RecipesSerializer(data=newRecipe)
+    if serializer.is_valid():
+        serializer.save()
+
+    return Response(serializer.data)
 
 # sample request.data
 # {
