@@ -53,7 +53,7 @@ const NewRecipe = () => {
 
       console.log(queryBody)
   
-      await axios.post('/api/recipe', queryBody);
+      await axios.post('/api/new-recipe/', queryBody);
       
       setIsSubmitted(true);
     } catch (error) {
