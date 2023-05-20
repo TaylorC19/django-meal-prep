@@ -107,14 +107,24 @@ def addRecipe(request):
 @api_view(['GET'])
 def public_recipes(request):
     public_recipes = Recipes.objects.filter(is_public=True)
-    print('🤗', public_recipes)
     serializer = RecipesSerializer(public_recipes, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def random_recipe(request):
     public_recipes = Recipes.objects.filter(is_public=True)
-    print('🤗', public_recipes)
     serializer = RecipesSerializer(public_recipes, many=True)
-    print('🤐',random.choice(serializer.data))
     return Response(random.choice(serializer.data))
+
+@api_view(['GET'])
+def get_recipes(request, uid):
+    public_recipes = Recipes.objects.filter(user_uid=uid)
+    serializer = RecipesSerializer(public_recipes, many=True)
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+def delete_recipe(request, uid, recipeid):
+    to_delete = Recipes.objects.get(user_uid=uid, id=recipeid)
+    serializer = RecipesSerializer(to_delete, many=False)
+    to_delete.delete()
+    return Response(serializer.data, status=200)

@@ -16,8 +16,12 @@ const MyRecipes = () => {
   useEffect(() => {
     (async function () {
       const userRecipes = await axios
-        .get(`/api/recipes/${user.uid}`)
+        .get(`/api/recipes/${user.uid}/`)
         .then((results) => results.data);
+      for (let element of userRecipes) {
+        console.log(element)
+        element.ingredients = JSON.parse(element.ingredients)
+      }
       setMyRecipes(userRecipes);
       return "allGood";
     })();

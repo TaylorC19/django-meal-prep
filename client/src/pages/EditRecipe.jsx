@@ -51,7 +51,7 @@ const EditRecipe = () => {
         recipeInfo: recipePayload 
       };
   
-      await axios.post('/api/recipe', queryBody);
+      await axios.post('/api/recipe/', queryBody);
       
       setIsSubmitted(true);
     } catch (error) {

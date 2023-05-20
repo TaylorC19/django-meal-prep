@@ -33,8 +33,9 @@ const Home = () => {
   useEffect(() => {
     const getHighlight = async () => {
       const highlight = await axios
-        .get("/api/random-recipe")
+        .get("/api/random-recipe/")
         .then((result) => result.data);
+      highlight.ingredients = JSON.parse(highlight.ingredients)
       setSingleRecipe(highlight);
     };
     getHighlight();

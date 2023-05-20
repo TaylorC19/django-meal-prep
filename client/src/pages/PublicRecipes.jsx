@@ -14,10 +14,14 @@ function PublicRecipes() {
   useEffect(() => {
     (async function () {
       const userRecipes = await axios
-        .get(`/api/public-recipes`)
+        .get(`/api/public-recipes/`)
         .then((results) => results.data)
         .catch((err) => false);
-        console.log(typeof userRecipes)
+      
+      for (let element of userRecipes) {
+        console.log(element)
+        element.ingredients = JSON.parse(element.ingredients)
+      }
       if (typeof userRecipes === "object") {
         setPublicRecipes(userRecipes);
       }
