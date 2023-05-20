@@ -118,7 +118,7 @@ def random_recipe(request):
 
 @api_view(['GET'])
 def get_recipes(request, uid):
-    public_recipes = Recipes.objects.filter(user_uid=uid)
+    public_recipes = Recipes.objects.filter(user_uid=uid).order_by('-id')
     serializer = RecipesSerializer(public_recipes, many=True)
     return Response(serializer.data)
 
