@@ -6,6 +6,8 @@ import os
 import dotenv
 import requests
 import json
+import random
+
 
 dotenv.load_dotenv()
 
@@ -102,6 +104,17 @@ def addRecipe(request):
 # }
 
 
-# @api_view(['GET'])
-# def public_recipes(request):
-# 
+@api_view(['GET'])
+def public_recipes(request):
+    public_recipes = Recipes.objects.filter(is_public=True)
+    print('🤗', public_recipes)
+    serializer = RecipesSerializer(public_recipes, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def random_recipe(request):
+    public_recipes = Recipes.objects.filter(is_public=True)
+    print('🤗', public_recipes)
+    serializer = RecipesSerializer(public_recipes, many=True)
+    print('🤐',random.choice(serializer.data))
+    return Response(random.choice(serializer.data))
